@@ -104,3 +104,12 @@ Publicação e atualização de conteúdo estático.
 Automação com scripts Bash.
 
 Diferença entre cp (copia tudo) e sync (atualiza apenas o que mudou).
+
+## 🖼️ Galeria de Imagens
+
+Abaixo algumas imagens utilizadas no projeto:
+
+![Imagem da árvore](imagens/Tree.png)
+![Segunda imagem](imagens/Two.jpg)
+![Terceira imagem](imagens/five.png)
+![Quarta imagem](imagens/for.png)
