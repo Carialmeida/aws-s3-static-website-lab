@@ -1,0 +1,48 @@
+# Task 1 – Conectar ao EC2 via SSM
+sudo su -l ec2-user
+pwd
+
+# Task 2 – Configurar o AWS CLI
+aws configure
+
+# Task 3 – Criar um bucket no S3
+aws s3api create-bucket --bucket <twhitlock256> --region us-west-2 --create-bucket-configuration LocationConstraint=us-west-2
+
+# Task 4 – Criar usuário IAM com acesso total ao S3
+aws iam create-user --user-name awsS3user
+aws iam create-login-profile --user-name awsS3user --password Training123!
+aws iam list-policies --query "Policies[?contains(PolicyName,'S3')]"
+aws iam attach-user-policy --policy-arn arn:aws:iam::aws:policy/<policyYouFound> --user-name awsS3user
+
+# Task 6 – Extrair arquivos do site
+cd ~/sysops-activity-files
+tar xvzf static-website-v2.tar.gz
+cd static-website
+ls
+
+# Task 7 – Enviar arquivos para o S3
+aws s3 website s3://<my-bucket>/ --index-document index.html
+aws s3 cp /home/ec2-user/sysops-activity-files/static-website/ s3://<my-bucket>/ --recursive --acl public-read
+aws s3 ls <my-bucket>
+
+# Task 8 – Criar script para atualizar o site
+history
+cd ~
+touch update-website.sh
+vi update-website.sh
+
+# Conteúdo do script update-website.sh
+#!/bin/bash
+aws s3 cp /home/ec2-user/sysops-activity-files/static-website/ s3://<my-bucket>/ --recursive --acl public-read
+
+# Tornar executável
+chmod +x update-website.sh
+
+# Editar arquivo local
+vi sysops-activity-files/static-website/index.html
+
+# Atualizar site
+./update-website.sh
+
+# Desafio opcional – Usar sync
+aws s3 sync /home/ec2-user/sysops-activity-files/static-website/ s3://<my-bucket>/ --acl public-read
