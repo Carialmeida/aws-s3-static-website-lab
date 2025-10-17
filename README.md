@@ -26,9 +26,11 @@ O conteúdo foi desenvolvido a partir de um laboratório prático da AWS Trainin
 
 ---
 
+
+
 🚀 Passos Principais
 
-1️⃣ Conectar à instância EC2
+2️⃣ Conectar à instância EC2
 ```bash
 sudo su -l ec2-user
 pwd
